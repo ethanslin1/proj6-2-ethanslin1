@@ -36,8 +36,32 @@ Insert your test cases here. Be sure to include images/videos as needed!
 
 ### Design Choices
 
+These are my outputs for depth buffers, g buffers, and deferred lighitng: 
+<img width="545" height="409" alt="Screenshot 2025-12-01 at 11 50 32 PM" src="https://github.com/user-attachments/assets/4aedf683-478a-485c-bf72-34cb5ae5741a" />
+
+<img width="542" height="411" alt="Screenshot 2025-12-01 at 11 50 52 PM" src="https://github.com/user-attachments/assets/e177409c-6d80-4914-bd83-0462f9e041b0" />
+<img width="545" height="409" alt="Screenshot 2025-12-01 at 11 51 04 PM" src="https://github.com/user-attachments/assets/9a0eee27-8cc9-48ba-9587-1a960a019beb" />
+$<img width="545" height="406" alt="Screenshot 2025-12-01 at 11 51 16 PM" src="https://github.com/user-attachments/assets/47ea75ae-a8f0-491e-82e1-e99a0afde182" />
+
+<img width="547" height="408" alt="Screenshot 2025-12-01 at 11 51 48 PM" src="https://github.com/user-attachments/assets/3b3c8349-4771-41f6-b0b5-1eb7187ca9e6" />
+
+<img width="548" height="412" alt="Screenshot 2025-12-01 at 11 52 24 PM" src="https://github.com/user-attachments/assets/0ea5a1d0-47cc-4ca1-a9c9-f3f2af67f991" />
+<img width="545" height="411" alt="Screenshot 2025-12-01 at 11 52 45 PM" src="https://github.com/user-attachments/assets/843d3c50-7d0a-4693-bbdf-bcaa4bdb9338" />
+<img width="547" height="409" alt="Screenshot 2025-12-01 at 11 53 07 PM" src="https://github.com/user-attachments/assets/72d1360c-c384-47d3-ab9b-671b216e1b9a" />
+spot light: 
+<img width="545" height="409" alt="Screenshot 2025-12-01 at 11 53 34 PM" src="https://github.com/user-attachments/assets/d50e4660-28bb-4165-96c9-d6d681f572a8" />
+
+<img width="545" height="410" alt="Screenshot 2025-12-01 at 11 53 57 PM" src="https://github.com/user-attachments/assets/84cf8573-a14c-4d29-bac3-97d632b3277c" />
+
+point lights:
+<img width="548" height="406" alt="Screenshot 2025-12-01 at 11 54 29 PM" src="https://github.com/user-attachments/assets/c4dc61f9-ea40-49d8-8975-ff87b1ef067e" />
+
+In initilize gl, I call glEnablge(GL_DEPTH_TEST), which should calculate z values and only store the smalles t one for every pixel. this is done for every shape in that pixel. then in my scene changed, I bind my textures into one fbo. I store 6 textures: one for position, one for normals + shininess, one for lightin only diffuse, one for lightin only specualr, one for the final color (which I don t use here, but will use later for depth of field), and then a flaot texture for depth, and then another depth (stored as a depth attachment)
+Overall, I did three lgihting passes. I nthe first pass, I loop through the shapes and bind the vao for the respective primitive type, then I pass therespective position for the vertex, the normal, and attach the shininess to the end of the normal. then I do a second pass for lighting, where i bind to the screenspace vao where I sample the nromal, texture, and shininess, and pass in the lgihting info as uniforms. with this pass, i claclaute specualr-lighting only and lighitng-only diffuse, and pass them into sepeerate textures in my fbo. then in the thrid pass, I sampe the two light only diffuse and light only specualar, and then loop through my shapes and bind to the shape vao, and calcaulte uv screen space coordinates by passing in the scene height ahdn width to sampel tecutes, and output the final light iwth the material proeprties and global data multipled and acocutned for
+
+
 ### Collaboration/References
 
 ### Known Bugs
-
+I have posted most of the outputs with bugs. The things that is defenitly workign is directional lights. known bugs are that the positio nfo the poitn lights are off, adn the spotfactori s not being accoutned for.
 ### Extra Credit
